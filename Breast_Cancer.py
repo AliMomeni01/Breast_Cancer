@@ -3,7 +3,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score, precision_score, recall_score
-from sklearn.neighbors import KNeighborsClassifier  
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
 bc = load_breast_cancer()
 #print (bc.DESCR)
 #print (bc.target[500])
@@ -38,3 +39,10 @@ knn.fit(x_train,y_train)
 y_pred_train = knn.predict(x_train)
 y_pred_test  = knn.predict(x_test)
 acc_train_knn,acc_test_knn,p_knn,r_knn = calculate_metrics(y_train,y_test,y_pred_train,y_pred_test) 
+
+dt = DecisionTreeClassifier(criterion= 'entropy', max_depth= 114, min_samples_split=11)
+dt.fit(x_train,y_train)
+#print(dt)
+y_pred_train = dt.predict(x_train)
+y_pred_test = dt.predict(x_test)
+acc_train_dt,acc_test_dt,p_dt,r_dt = calculate_metrics(y_train,y_test,y_pred_train,y_pred_test)
