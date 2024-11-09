@@ -3,6 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score, precision_score, recall_score
+from sklearn.neighbors import KNeighborsClassifier  
 bc = load_breast_cancer()
 #print (bc.DESCR)
 #print (bc.target[500])
@@ -27,3 +28,6 @@ def calculate_metrics(y_train,y_test,y_pred_train,y_pred_test):
 gnb = GaussianNB()
 gnb.fit(x_train,y_train)
 print(gnb)
+y_pred_train = gnb.predict(x_train)
+y_pred_test = gnb.predict(x_test)
+cc_train_gnb,acc_test_gnb,p_gnb,r_gnb= calculate_metrics(y_train,y_test,y_pred_train,y_pred_test)
