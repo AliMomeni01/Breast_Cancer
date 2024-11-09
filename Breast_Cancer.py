@@ -27,7 +27,14 @@ def calculate_metrics(y_train,y_test,y_pred_train,y_pred_test):
 
 gnb = GaussianNB()
 gnb.fit(x_train,y_train)
-print(gnb)
+#print(gnb)
 y_pred_train = gnb.predict(x_train)
 y_pred_test = gnb.predict(x_test)
-cc_train_gnb,acc_test_gnb,p_gnb,r_gnb= calculate_metrics(y_train,y_test,y_pred_train,y_pred_test)
+acc_train_gnb,acc_test_gnb,p_gnb,r_gnb= calculate_metrics(y_train,y_test,y_pred_train,y_pred_test)
+
+knn = KNeighborsClassifier(n_neighbors= 8 , algorithm= 'kd_tree', leaf_size= 28)
+knn.fit(x_train,y_train)
+#print(knn)
+y_pred_train = knn.predict(x_train)
+y_pred_test  = knn.predict(x_test)
+acc_train_knn,acc_test_knn,p_knn,r_knn = calculate_metrics(y_train,y_test,y_pred_train,y_pred_test) 
