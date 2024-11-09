@@ -8,6 +8,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
+from sklearn.neural_network import MLPClassifier
 bc = load_breast_cancer()
 #print (bc.DESCR)
 #print (bc.target[500])
@@ -69,3 +70,9 @@ lr.fit(x_train,y_train)
 y_pred_train = lr.predict(x_train)
 y_pred_test = lr.predict(x_test)
 acc_train_lr,acc_test_lr,p_lr,r_lr = calculate_metrics(y_train,y_test,y_pred_train,y_pred_test)
+
+ann = MLPClassifier(hidden_layer_sizes= 100, activation= "relu", solver= "adam")
+ann.fit(x_train,y_train)
+y_pred_train = ann.predict(x_train)
+y_pred_test = ann.predict(x_test)
+acc_train_ann,acc_test_ann,p_ann,r_ann = calculate_metrics(y_train,y_test,y_pred_train,y_pred_test) 
