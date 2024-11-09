@@ -7,6 +7,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
+from sklearn.linear_model import LogisticRegression
 bc = load_breast_cancer()
 #print (bc.DESCR)
 #print (bc.target[500])
@@ -58,7 +59,13 @@ acc_train_rf,acc_test_rf,p_rf,r_rf = calculate_metrics(y_train,y_test,y_pred_tra
 
 svm = SVC()
 svm.fit(x_train,y_train)
-print(svm)
+#print(svm)
 y_pred_train = svm.predict(x_train)
 y_pred_test = svm.predict(x_test)
 acc_train_svm,acc_test_svm,p_svm,r_svm = calculate_metrics(y_train,y_test,y_pred_train,y_pred_test)
+
+lr = LogisticRegression()
+lr.fit(x_train,y_train)
+y_pred_train = lr.predict(x_train)
+y_pred_test = lr.predict(x_test)
+acc_train_lr,acc_test_lr,p_lr,r_lr = calculate_metrics(y_train,y_test,y_pred_train,y_pred_test)
