@@ -6,6 +6,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
 bc = load_breast_cancer()
 #print (bc.DESCR)
 #print (bc.target[500])
@@ -48,10 +49,16 @@ y_pred_train = dt.predict(x_train)
 y_pred_test = dt.predict(x_test)
 acc_train_dt,acc_test_dt,p_dt,r_dt = calculate_metrics(y_train,y_test,y_pred_train,y_pred_test)
 
-rf = RandomForestClassifier()
+rf = RandomForestClassifier(n_estimators=1000, max_depth=32, min_samples_split=4)
 rf.fit(x_train,y_train)
 #print(rf)
 y_pred_train = rf.predict(x_train)
 y_pred_test = rf.predict(x_test)
 acc_train_rf,acc_test_rf,p_rf,r_rf = calculate_metrics(y_train,y_test,y_pred_train,y_pred_test)
 
+svm = SVC()
+svm.fit(x_train,y_train)
+print(svm)
+y_pred_train = svm.predict(x_train)
+y_pred_test = svm.predict(x_test)
+acc_train_svm,acc_test_svm,p_svm,r_svm = calculate_metrics(y_train,y_test,y_pred_train,y_pred_test)
