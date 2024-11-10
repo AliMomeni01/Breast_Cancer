@@ -79,6 +79,25 @@ y_pred_test = ann.predict(x_test)
 acc_train_ann,acc_test_ann,p_ann,r_ann = calculate_metrics(y_train,y_test,y_pred_train,y_pred_test) 
 
 acc_train = [acc_train_ann,acc_train_dt,acc_train_gnb,acc_train_knn,acc_train_lr,acc_train_rf,acc_train_svm]
-titel = ["ANN", "DT", "GNB", "KNN", "IR", "RF", "SVM" ]
-plt.bar(titel, acc_train)
+acc_test = [acc_test_ann,acc_test_dt,acc_test_gnb,acc_test_knn,acc_test_lr,acc_test_rf,acc_test_svm]
+p = [p_ann,p_dt,p_gnb,p_knn,p_lr,p_rf,p_svm]
+r = [r_ann,r_dt,r_gnb,r_knn,r_lr,r_rf,r_svm]
+
+title_da = ["ANN", "DT", "GNB", "KNN", "IR", "RF", "SVM" ]
+color = ["black", "red", "yellow", "orange", "green", "blue", "pink"]
+
+fig, axes = plt.subplots(2, 2, figsize= (12, 10))
+fig.suptitle("Accuracy, Recall, Precision", fontsize = 16) 
+
+titles = ["Train Accuracy", "Test Accuracy", "Precision", "Recall"]
+data = [acc_train, acc_test, p, r]
+positions = [(0,0), (0,1), (1,0), (1,1)]
+
+for title,datum,pos in zip(titles,data,positions):
+    axes[pos].bar(title_da,datum, color= color)
+    axes[pos].set_title(title)
+    axes[pos].grid()
+
+plt.tight_layout(rect=[0, 1, 1, 0.95 ])
+
 plt.show()
