@@ -9,13 +9,14 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.neural_network import MLPClassifier
+import matplotlib.pyplot as plt
 bc = load_breast_cancer()
 #print (bc.DESCR)
 #print (bc.target[500])
 #print(bc.target.shape)
 #print(bc.data[0])
 #print(bc.data.shape)
-x_train,x_test,y_train,y_test = train_test_split(bc.data, bc.target, test_size= 0.2)
+x_train,x_test,y_train,y_test = train_test_split(bc.data, bc.target, test_size= 0.2, random_state= 50)
 #print(f"Feature => Train: {x_train.shape} - Test: {x_test.shape}")
 #print(f"Label => Train: {y_train.shape} - Test: {y_test.shape}")
 scaler = MinMaxScaler (feature_range= (0,1) )
@@ -71,8 +72,13 @@ y_pred_train = lr.predict(x_train)
 y_pred_test = lr.predict(x_test)
 acc_train_lr,acc_test_lr,p_lr,r_lr = calculate_metrics(y_train,y_test,y_pred_train,y_pred_test)
 
-ann = MLPClassifier(hidden_layer_sizes= 100, activation= "relu", solver= "adam")
+ann = MLPClassifier(hidden_layer_sizes= 510, activation= "tanh", solver= "lbfgs")
 ann.fit(x_train,y_train)
 y_pred_train = ann.predict(x_train)
 y_pred_test = ann.predict(x_test)
 acc_train_ann,acc_test_ann,p_ann,r_ann = calculate_metrics(y_train,y_test,y_pred_train,y_pred_test) 
+
+acc_train = [acc_train_ann,acc_train_dt,acc_train_gnb,acc_train_knn,acc_train_lr,acc_train_rf,acc_train_svm]
+titel = ["ANN", "DT", "GNB", "KNN", "IR", "RF", "SVM" ]
+plt.bar(titel, acc_train)
+plt.show()
